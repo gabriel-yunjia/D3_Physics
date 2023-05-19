@@ -15,7 +15,7 @@ class Scene1 extends Phaser.Scene {
         this.JUMP_VELOCITY = -950;
         this.physics.world.gravity.y = 3000;
 
-        // set bg color
+    
         // draw grid lines for jump height reference
         let graphics = this.add.graphics();
         graphics.lineStyle(2, 0xFFFFFF, 0.1);
@@ -37,6 +37,10 @@ class Scene1 extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
+
+
+
+
         // Middle Platform
         for(let i = tileSize*4; i < game.config.width-tileSize*4; i += tileSize) {
             let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*5, 'groundTile').setScale(SCALE).setOrigin(0);
@@ -90,6 +94,8 @@ class Scene1 extends Phaser.Scene {
         this.physics.add.collider(this.waterBoy, this.ground);
         this.physics.add.collider(this.fireGirl, this.ground);
        
+
+        // Scene Switcher
         this.input.keyboard.on('keydown', (event) => {
             //console.log(event);
             switch(event.key) {
@@ -102,29 +108,19 @@ class Scene1 extends Phaser.Scene {
                 case '3':
                     this.scene.start('Scene3');
                     break;
+                case '4':
+                    this.scene.start('Transition1');
+                    break;
+                case '5':
+                    this.scene.start('Transition2');
+                    break;
+                case '6':
+                    this.scene.start('Ending');
+                    break;
                 case 'r':
                     this.scene.start('Scene1');
                     break;
-            //     case '2':
-            //         this.scene.start('accelerationScene');
-            //         break;
-            //     case '3':
-            //         this.scene.start('fixedJumpScene');
-            //         break;
-            //     case '4':
-            //         this.scene.start('variableJumpScene');
-            //         break;
-            //     case '5':
-            //         this.scene.start('runnerScene');
-            //         break;
-            //     case '6':
-            //         this.scene.start('pogoScene');
-            //         break;
-            //     case '7':
-            //         this.scene.start('asteroidsScene');
-            //         break;
-            //     default:
-            //         break;
+
              }
         });
 

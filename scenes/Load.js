@@ -20,6 +20,10 @@ class Load extends Phaser.Scene {
         this.load.image('purplePressedButton', "purplePressedButton.png");
         this.load.image('blueGate' , 'blueGate.png');
         this.load.image('redGate' , 'redGate.png');
+        this.load.image('redButton', "redButton.png");
+        this.load.image('redPressedButton', "pressedRedButton.png");
+        this.load.image('blueButton', "blueButton.png");
+        this.load.image('bluePressedButton', "pressedBlueButton.png");
     }
 
     create() {

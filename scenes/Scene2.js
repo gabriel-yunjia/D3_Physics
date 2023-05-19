@@ -115,6 +115,7 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.collider(this.fireGirl, this.purplePlatform);
         this.physics.add.collider(this.fireGirl, this.platform);
 
+        // Scene Switcher
         this.input.keyboard.on('keydown', (event) => {
             //console.log(event);
             switch(event.key) {
@@ -124,11 +125,24 @@ class Scene2 extends Phaser.Scene {
                 case '2':
                     this.scene.start('Scene2');
                     break;
+                case '3':
+                    this.scene.start('Scene3');
+                    break;
+                case '4':
+                    this.scene.start('Transition1');
+                    break;
+                case '5':
+                    this.scene.start('Transition2');
+                    break;
+                case '6':
+                    this.scene.start('Ending');
+                    break;
                 case 'r':
                     this.scene.start('Scene2');
                     break;
-            }
-        })
+
+             }
+        });
     }
 
     changeDoor(sprite, collidedObject) {
@@ -191,11 +205,6 @@ class Scene2 extends Phaser.Scene {
         } else{
             this.waterBoy.body.setAccelerationX(0);
             this.waterBoy.body.setDragX(999999);
-        }
-
-
-        if(!this.waterBoy.body.touching.down) {
-            this.waterBoy.anims.play('jump', true);
         }
 
         if(this.waterBoy.body.touching.down && this.keys.UP.isDown) {

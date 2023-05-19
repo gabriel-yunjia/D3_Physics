@@ -4,6 +4,9 @@ class Scene3 extends Phaser.Scene {
     }
     waterBoy;
 
+    redButtonPressed = false;
+    blueButtonPressed = false;
+
     create() {
         // variables and settings
 
@@ -37,6 +40,7 @@ class Scene3 extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
+        
 
         // Middle Walls
         for(let i = tileSize; i < game.config.height-tileSize*2; i += tileSize) {
@@ -45,22 +49,29 @@ class Scene3 extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
-
-        // Middle Platform
-        for(let i = tileSize*4; i < game.config.width-tileSize*4; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*5, 'groundTile').setScale(SCALE).setOrigin(0);
+        for(let i = tileSize; i < game.config.height-tileSize*2; i += tileSize) {
+            let groundTile = this.physics.add.sprite(game.config.width/2-tileSize, i + tileSize*2, 'groundTile').setScale(SCALE).setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
-        // Red Door Platfoorm
+        
+        
+        // Middle Platform
+        for(let i = tileSize*4; i < game.config.width-tileSize*4; i += tileSize) {
+            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*6, 'groundTile').setScale(SCALE).setOrigin(0);
+            groundTile.body.immovable = true;
+            groundTile.body.allowGravity = false;
+            this.ground.add(groundTile);
+        }
+        // Upper Left Platfoorm
         for(let i = tileSize; i < game.config.width-tileSize*15; i += tileSize) {
             let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*9,  'groundTile').setScale(SCALE).setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
-        // Blue Door Platform
+        // Upper Right Platform
         for(let i = game.config.width-tileSize*2; i > game.config.width-tileSize*10; i -= tileSize) {
             let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*9,  'groundTile').setScale(SCALE).setOrigin(0);
             groundTile.body.immovable = true;   
@@ -68,19 +79,48 @@ class Scene3 extends Phaser.Scene {
             this.ground.add(groundTile);
         }
 
+        let groundTile = this.physics.add.sprite(game.config.width - tileSize, game.config.height - tileSize*2, 'groundTile').setScale(SCALE).setOrigin(0);
+        groundTile.body.immovable = true;
+        groundTile.body.allowGravity = false;
+
+        let groundTile2 = this.physics.add.sprite(1, game.config.height - tileSize*2, 'groundTile').setScale(SCALE).setOrigin(0);
+        groundTile2.body.immovable = true;
+        groundTile2.body.allowGravity = false;
+        this.ground.add(groundTile);
+        this.ground.add(groundTile2);
         // set up doors
-        this.redDoor = this.physics.add.sprite(tileSize*3, tileSize*4 + 6, 'redDoor').setScale(SCALE).setOrigin(0);
+        this.redDoor = this.physics.add.sprite(game.config.width/2 + tileSize*2 , game.config.height - tileSize*3 + 6, 'redDoor').setScale(SCALE).setOrigin(0);
         this.redDoor.body.allowGravity = false;
         this.redDoor.body.onOverlap = true;
-        this.blueDoor = this.physics.add.sprite(tileSize*21, tileSize*4 + 6, 'blueDoor').setScale(SCALE).setOrigin(0);
+        this.blueDoor = this.physics.add.sprite(game.config.width/2 - tileSize*3 , game.config.height - tileSize*3 + 6, 'blueDoor').setScale(SCALE).setOrigin(0);
         this.blueDoor.body.allowGravity = false;
         this.blueDoor.body.immovable = true;
 
-        // set up physics with players and doors
+        // set up Gates
 
-        
+        this.redGate = this.physics.add.sprite(game.config.width/2 - tileSize*5 , game.config.height - tileSize*5 + 3 , 'redGate').setScale(SCALE).setOrigin(0);
+        this.redGate.body.allowGravity = false;
+        this.redGate.body.immovable= true;
+        this.blueGate = this.physics.add.sprite(game.config.width/2 + tileSize*4 , game.config.height - tileSize*5 + 3 , 'blueGate').setScale(SCALE).setOrigin(0);
+        this.blueGate.body.allowGravity = false;
+        this.blueGate.body.immovable= true;
+        this.outerRedGate = this.physics.add.sprite(game.config.width/2 + tileSize*6 , game.config.height - tileSize*5 + 3, 'redGate').setScale(SCALE).setOrigin(0);
+        this.outerRedGate.body.allowGravity = false;
+        this.outerRedGate.body.immovable= true;
+        this.outerBlueGate = this.physics.add.sprite(game.config.width/2 - tileSize*7 , game.config.height - tileSize*5 + 3, 'blueGate').setScale(SCALE).setOrigin(0);
+        this.outerBlueGate.body.allowGravity = false;
+        this.outerBlueGate.body.immovable= true;
+                
 
-        
+        // set up buttons 
+
+        this.blueButton = this.physics.add.sprite(game.config.width/2 - tileSize*8 , game.config.height - tileSize*10 , 'blueButton').setScale(SCALE).setOrigin(0);
+        this.blueButton.body.allowGravity = false;
+        this.blueButton.body.immovable = true;
+        this.redButton = this.physics.add.sprite(game.config.width/2 + tileSize*7 , game.config.height - tileSize*10 , 'redButton').setScale(SCALE).setOrigin(0);
+        this.redButton.body.allowGravity = false;
+        this.redButton.body.immovable = true;
+                                                                           
 
         // set up Main Characters 
         this.waterBoy = this.physics.add.sprite(tileSize*4, game.config.height - tileSize*2, 'waterBoy').setScale(SCALE);
@@ -98,41 +138,38 @@ class Scene3 extends Phaser.Scene {
         // add physics collider
         this.physics.add.collider(this.waterBoy, this.ground);
         this.physics.add.collider(this.fireGirl, this.ground);
-       
-        this.input.keyboard.on('keydown', (event) => {
-            //console.log(event);
-            switch(event.key) {
-                case '1':
-                    this.scene.start('Scene1');
-                    break;
-                case '2':
-                    this.scene.start('Scene2');
-                    break;
-                case 'r':
-                    this.scene.start('Scene2');
-                    break;
-            //     case '2':
-            //         this.scene.start('accelerationScene');
-            //         break;
-            //     case '3':
-            //         this.scene.start('fixedJumpScene');
-            //         break;
-            //     case '4':
-            //         this.scene.start('variableJumpScene');
-            //         break;
-            //     case '5':
-            //         this.scene.start('runnerScene');
-            //         break;
-            //     case '6':
-            //         this.scene.start('pogoScene');
-            //         break;
-            //     case '7':
-            //         this.scene.start('asteroidsScene');
-            //         break;
-            //     default:
-            //         break;
-             }
-        });
+        this.physics.add.collider(this.fireGirl, this.blueGate);
+        this.physics.add.collider(this.waterBoy, this.redGate);
+
+        //Debug: Scene Switcher
+                // Scene Switcher
+                this.input.keyboard.on('keydown', (event) => {
+                    //console.log(event);
+                    switch(event.key) {
+                        case '1':
+                            this.scene.start('Scene1');
+                            break;
+                        case '2':
+                            this.scene.start('Scene2');
+                            break;
+                        case '3':
+                            this.scene.start('Scene3');
+                            break;
+                        case '4':
+                            this.scene.start('Transition1');
+                            break;
+                        case '5':
+                            this.scene.start('Transition2');
+                            break;
+                        case '6':
+                            this.scene.start('Ending');
+                            break;
+                        case 'r':
+                            this.scene.start('Scene1');
+                            break;
+        
+                     }
+                });
 
 
 
@@ -148,16 +185,33 @@ class Scene3 extends Phaser.Scene {
         collidedObject.setTexture('greenDoor');
         }
 
+    changeBlueButton(sprite, collidedObject) {
+        collidedObject.setTexture('bluePressedButton');
+        this.blueButtonPressed = true
+        }    
+    changeRedButton(sprite, collidedObject) {
+        collidedObject.setTexture('redPressedButton');
+        this.redButtonPressed = true
+        }  
+
     update() {
         
         this.physics.add.overlap(this.waterBoy, this.blueDoor, this.changeSprite, null, this);
         this.physics.add.overlap(this.fireGirl, this.redDoor, this.changeSprite, null, this);
+        this.physics.add.overlap(this.waterBoy, this.blueButton, this.changeBlueButton, null, this);
+        this.physics.add.overlap(this.fireGirl, this.redButton, this.changeRedButton, null, this);
+
 
         if (this.redDoor.texture.key === 'greenDoor' && this.blueDoor.texture.key === 'greenDoor') {
-            this.scene.start('Transition1'); 
+            this.scene.start('Ending'); 
         }
 
-
+        if(this.blueButtonPressed == true){
+            this.blueGate.body.setVelocityY(100);
+        }
+        if(this.redButtonPressed == true){
+            this.redGate.body.setVelocityY(100);
+        }
 
         // check keyboard input
         if (this.keys.A.isDown) {

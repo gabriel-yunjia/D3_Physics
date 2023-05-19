@@ -1,18 +1,18 @@
-class Transition1 extends Phaser.Scene {
+class Ending extends Phaser.Scene {
     constructor() {
-        super('Transition1')
+        super('Ending')
     }
     create() {
-        this.add.text(game.config.width/3, game.config.height/3, "Level 1 Complete!").setFontSize(30);
-        this.add.text(game.config.width/3 ,game.config.height/2, "Click For Next Level.").setFontSize(20);
+        this.add.text(game.config.width/8, game.config.height/3, "Level 3 Complete! Thanks For Playing!").setFontSize(30);
+        this.add.text(game.config.width/3 ,game.config.height/2, "Click to Restart.").setFontSize(20);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('Scene2'));
+            this.time.delayedCall(1000, () => this.scene.start('Scene1'));
         });
 
                 // Scene Switcher
                 this.input.keyboard.on('keydown', (event) => {
-                    
+                    //console.log(event);
                     switch(event.key) {
                         case '1':
                             this.scene.start('Scene1');
@@ -38,6 +38,5 @@ class Transition1 extends Phaser.Scene {
         
                      }
                 });
-
     }
 }
