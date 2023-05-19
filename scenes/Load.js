@@ -8,6 +8,10 @@ class Load extends Phaser.Scene {
         this.load.path = 'assets/';
         this.load.image('fireGirl', 'fireGirl.png');
         this.load.image('waterBoy' , 'waterBoy.png');
+        this.load.image('groundTile', 'groundTile.png');
+        this.load.image('blueDoor', 'blueDoor.png');
+        this.load.image('redDoor', 'redDoor.png');
+        this.load.image('greenDoor', 'greenDoor.png');
     }
 
     create() {

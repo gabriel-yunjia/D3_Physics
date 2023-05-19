@@ -2,6 +2,7 @@
 //organizing files was super neat and nice too look at so I'm using his style and some of his code.
 
 let cursors;
+let keys;
 let currentScene = 0;
 const SCALE = 0.5;
 const tileSize = 35;
@@ -14,7 +15,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: {
                 x: 0,
                 y: 0
