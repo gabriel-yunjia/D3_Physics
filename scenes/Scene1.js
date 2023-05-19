@@ -2,6 +2,7 @@ class Scene1 extends Phaser.Scene {
     constructor() {
         super('Scene1');
     }
+    waterBoy;
 
     create() {
         // variables and settings
@@ -61,12 +62,16 @@ class Scene1 extends Phaser.Scene {
         // set up doors
         this.redDoor = this.physics.add.sprite(tileSize*3, tileSize*4 + 6, 'redDoor').setScale(SCALE).setOrigin(0);
         this.redDoor.body.allowGravity = false;
-        this.redDoor.body.immovable = true;
-
+        this.redDoor.body.onOverlap = true;
         this.blueDoor = this.physics.add.sprite(tileSize*21, tileSize*4 + 6, 'blueDoor').setScale(SCALE).setOrigin(0);
         this.blueDoor.body.allowGravity = false;
         this.blueDoor.body.immovable = true;
 
+        // set up physics with players and doors
+
+        
+
+        
 
         // set up Main Characters 
         this.waterBoy = this.physics.add.sprite(game.config.width/4, game.config.height/2, 'waterBoy').setScale(SCALE);
@@ -76,6 +81,8 @@ class Scene1 extends Phaser.Scene {
         this.fireGirl.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
         this.fireGirl.setCollideWorldBounds(true);
 
+        
+
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -83,9 +90,26 @@ class Scene1 extends Phaser.Scene {
         this.physics.add.collider(this.waterBoy, this.ground);
         this.physics.add.collider(this.fireGirl, this.ground);
        
+        
+
+
     }
 
+    changeSprite(waterBoy, collidedObject) {
+        collidedObject.setTexture('greenDoor');
+        }
+
     update() {
+        
+        this.physics.add.overlap(this.waterBoy, this.blueDoor, this.changeSprite, null, this);
+        this.physics.add.overlap(this.fireGirl, this.redDoor, this.changeSprite, null, this);
+
+        if (this.redDoor.texture.key === 'greenDoor' && this.blueDoor.texture.key === 'greenDoor') {
+            this.scene.start('Scene2'); // Replace 'NextScene' with the actual name of your next scene
+        }
+
+
+
         // check keyboard input
         if (this.keys.A.isDown) {
             this.fireGirl.body.setAccelerationX(-this.ACCELERATION);
@@ -128,6 +152,7 @@ class Scene1 extends Phaser.Scene {
 
         }
 
+    
        
         
     }

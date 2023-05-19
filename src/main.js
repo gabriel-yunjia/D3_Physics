@@ -22,7 +22,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Scene1 ]
+    scene: [Load, Scene1, Scene2 ]
 };
 
 let game = new Phaser.Game(config);
