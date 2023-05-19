@@ -1,6 +1,6 @@
-class Scene1 extends Phaser.Scene {
+class Scene3 extends Phaser.Scene {
     constructor() {
-        super('Scene1');
+        super('Scene3');
     }
     waterBoy;
 
@@ -24,7 +24,7 @@ class Scene1 extends Phaser.Scene {
         }
 
         // print Scene name
-        this.add.text(game.config.width/2, 30, 'Level1', { font: '14px Futura', fill: '#FFFFFF' }).setOrigin(0.5);
+        this.add.text(game.config.width/2, 30, 'Level3', { font: '14px Futura', fill: '#FFFFFF' }).setOrigin(0.5);
         
     
 
@@ -37,6 +37,15 @@ class Scene1 extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
+
+        // Middle Walls
+        for(let i = tileSize; i < game.config.height-tileSize*2; i += tileSize) {
+            let groundTile = this.physics.add.sprite(game.config.width/2, i + tileSize*2, 'groundTile').setScale(SCALE).setOrigin(0);
+            groundTile.body.immovable = true;
+            groundTile.body.allowGravity = false;
+            this.ground.add(groundTile);
+        }
+
         // Middle Platform
         for(let i = tileSize*4; i < game.config.width-tileSize*4; i += tileSize) {
             let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*5, 'groundTile').setScale(SCALE).setOrigin(0);
@@ -99,11 +108,8 @@ class Scene1 extends Phaser.Scene {
                 case '2':
                     this.scene.start('Scene2');
                     break;
-                case '3':
-                    this.scene.start('Scene3');
-                    break;
                 case 'r':
-                    this.scene.start('Scene1');
+                    this.scene.start('Scene2');
                     break;
             //     case '2':
             //         this.scene.start('accelerationScene');
@@ -183,11 +189,6 @@ class Scene1 extends Phaser.Scene {
         } else{
             this.waterBoy.body.setAccelerationX(0);
             this.waterBoy.body.setDragX(999999);
-        }
-
-
-        if(!this.waterBoy.body.touching.down) {
-            
         }
 
         if(this.waterBoy.body.touching.down && this.keys.UP.isDown) {

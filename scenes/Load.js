@@ -12,6 +12,14 @@ class Load extends Phaser.Scene {
         this.load.image('blueDoor', 'blueDoor.png');
         this.load.image('redDoor', 'redDoor.png');
         this.load.image('greenDoor', 'greenDoor.png');
+        this.load.image('platform', 'platform.png');
+        this.load.image('button', "button.png");
+        this.load.image('pressedButton', "pressedButton.png");
+        this.load.image('purplePlatform', 'purplePlatform.png');
+        this.load.image('purpleButton', "purpleButton.png");
+        this.load.image('purplePressedButton', "purplePressedButton.png");
+        this.load.image('blueGate' , 'blueGate.png');
+        this.load.image('redGate' , 'redGate.png');
     }
 
     create() {
