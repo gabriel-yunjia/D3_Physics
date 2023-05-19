@@ -18,13 +18,7 @@ class Scene3 extends Phaser.Scene {
         this.JUMP_VELOCITY = -950;
         this.physics.world.gravity.y = 3000;
 
-        // set bg color
-        // draw grid lines for jump height reference
-        let graphics = this.add.graphics();
-        graphics.lineStyle(2, 0xFFFFFF, 0.1);
-	    for(let y = game.config.height-70; y >= 35; y -= 35) {
-            graphics.lineBetween(0, y, game.config.width, y);
-        }
+
 
         // print Scene name
         this.add.text(game.config.width/2, 30, 'Level3', { font: '14px Futura', fill: '#FFFFFF' }).setOrigin(0.5);
